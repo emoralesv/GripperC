@@ -12,6 +12,7 @@ GripperC is a MATLAB App Designer application designed to characterize and analy
   - Select camera and resolution.
   - Optional contrast enhancement to improve marker visibility.
 - **Deep Learning–Based Detection**
+  - Load any `.mat` detector model (e.g. YOLO).
   - Set confidence threshold to filter weak detections.
 - **Multi‑Marker Tracking**
   - Support for multiple colored markers (red, green, blue, cyan, magenta, yellow, black).
