@@ -1,0 +1,94 @@
+<deployment-project plugin="plugin.apptool" plugin-version="1.0">
+  <configuration build-checksum="1930904934" file="C:\Users\Berries\Desktop\vision gripper\GUI\PathView\Source code\GripperC.prj" location="C:\Users\Berries\Desktop\vision gripper\GUI\PathView\Source code" name="GripperC" target="target.mlapps" target-name="Package App">
+    <param.appname>GripperC</param.appname>
+    <param.authnamewatermark>Eduardo Morales</param.authnamewatermark>
+    <param.email />
+    <param.company />
+    <param.icon>${PROJECT_ROOT}\GripperC_resources\icon_24.png</param.icon>
+    <param.icons>
+      <file>${PROJECT_ROOT}\GripperC_resources\icon_48.png</file>
+      <file>${PROJECT_ROOT}\GripperC_resources\icon_24.png</file>
+      <file>${PROJECT_ROOT}\GripperC_resources\icon_16.png</file>
+    </param.icons>
+    <param.summary />
+    <param.description>Gripper Characterizer for Robotic Compliant Systems</param.description>
+    <param.screenshot>C:\Users\Berries\AppData\Local\Temp\tpe3987ca7_fe9c_48a1_9917_13f484a84b60.png</param.screenshot>
+    <param.version>1.0</param.version>
+    <param.products.name />
+    <param.products.id />
+    <param.products.version />
+    <param.platforms />
+    <param.output>C:\Users\Berries\Desktop\vision gripper\GUI</param.output>
+    <param.guid>b8be31bb-f08e-4a62-a9a6-ff5f93913f43</param.guid>
+    <unset>
+      <param.email />
+      <param.company />
+      <param.summary />
+      <param.version />
+      <param.products.name />
+      <param.products.id />
+      <param.products.version />
+      <param.platforms />
+    </unset>
+    <fileset.main>
+      <file>${PROJECT_ROOT}\characterizationGUI.mlapp</file>
+    </fileset.main>
+    <fileset.depfun>
+      <file>C:\ProgramData\MATLAB\SupportPackages\R2024b\toolbox\matlab\webcam\supportpackages\+matlab\+webcam\+internal\PropertyInfo.p</file>
+      <file>C:\ProgramData\MATLAB\SupportPackages\R2024b\toolbox\matlab\webcam\supportpackages\+matlab\+webcam\+internal\Utility.p</file>
+      <file>C:\ProgramData\MATLAB\SupportPackages\R2024b\toolbox\matlab\webcam\supportpackages\+matlab\+webcam\+internal\WebcamDataUtilityHelper.p</file>
+      <file>C:\ProgramData\MATLAB\SupportPackages\R2024b\toolbox\matlab\webcam\supportpackages\+matlab\+webcam\+internal\WebcamDataUtilityParser.p</file>
+      <file>C:\ProgramData\MATLAB\SupportPackages\R2024b\toolbox\matlab\webcam\supportpackages\+matlab\+webcam\+internal\webcamDesktop.p</file>
+      <file>C:\ProgramData\MATLAB\SupportPackages\R2024b\toolbox\matlab\webcam\supportpackages\+matlab\+webcam\+internal\webcamOnline.p</file>
+      <file>C:\ProgramData\MATLAB\SupportPackages\R2024b\toolbox\matlab\webcam\supportpackages\webcam.m</file>
+      <file>C:\ProgramData\MATLAB\SupportPackages\R2024b\toolbox\matlab\webcam\supportpackages\webcamlist.m</file>
+      <file>C:\ProgramData\MATLAB\SupportPackages\R2024b\toolbox\vision\supportpackages\visualinspection\inspection\+visualinspection\+internal\cocoClasses.m</file>
+      <file>C:\ProgramData\MATLAB\SupportPackages\R2024b\toolbox\vision\supportpackages\visualinspection\inspection\+visualinspection\+internal\setAdditionalResourceLocation.m</file>
+      <file>C:\ProgramData\MATLAB\SupportPackages\R2024b\toolbox\vision\supportpackages\visualinspection\inspection\+visualinspection\+layer\+internal\RevisedFlattenLayer.m</file>
+      <file>C:\ProgramData\MATLAB\SupportPackages\R2024b\toolbox\vision\supportpackages\visualinspection\inspection\+visualinspection\+yolox\+internal\convertCenterToTopLeft.m</file>
+      <file>C:\ProgramData\MATLAB\SupportPackages\R2024b\toolbox\vision\supportpackages\visualinspection\inspection\+visualinspection\+yolox\+internal\yoloxTransform.m</file>
+      <file>C:\ProgramData\MATLAB\SupportPackages\R2024b\toolbox\vision\supportpackages\visualinspection\inspection\yoloxObjectDetector.m</file>
+    </fileset.depfun>
+    <fileset.resources>
+      <file>${PROJECT_ROOT}\helpers</file>
+      <file>${PROJECT_ROOT}\models</file>
+    </fileset.resources>
+    <fileset.package />
+    <build-deliverables>
+      <file location="C:\Users\Berries\Desktop\vision gripper" name="GUI" optional="false">C:\Users\Berries\Desktop\vision gripper\GUI</file>
+    </build-deliverables>
+    <workflow />
+    <matlab>
+      <root>C:\Program Files\MATLAB\R2024b</root>
+      <toolboxes>
+        <toolbox name="matlabcoder" />
+        <toolbox name="neuralnetwork" />
+      </toolboxes>
+      <toolbox>
+        <matlabcoder>
+          <enabled>true</enabled>
+        </matlabcoder>
+      </toolbox>
+      <toolbox>
+        <neuralnetwork>
+          <enabled>true</enabled>
+        </neuralnetwork>
+      </toolbox>
+    </matlab>
+    <platform>
+      <unix>false</unix>
+      <mac>false</mac>
+      <windows>true</windows>
+      <win2k>false</win2k>
+      <winxp>false</winxp>
+      <vista>false</vista>
+      <linux>false</linux>
+      <solaris>false</solaris>
+      <osver>10.0</osver>
+      <os32>false</os32>
+      <os64>true</os64>
+      <arch>win64</arch>
+      <matlab>true</matlab>
+    </platform>
+  </configuration>
+</deployment-project>
