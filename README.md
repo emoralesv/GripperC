@@ -104,9 +104,10 @@ GripperC is a MATLAB App Designer application designed to characterize and analy
 
 ## Citation
 
-If you use GripperC in your research, please cite:
+If you use GripperC in your research, please cite: (Don´t forget to update)
 
-E. Morales‑Vargas, "Computer Vision Approach for Performance Tracking of Robotic Compliant Systems", submitted to *Engineering Reports*, Manuscript ID: ENG‑2025‑07‑1112.
+E. Morales‑Vargas, R.Q. Fuentes‑Aguilar, G. Hernández‑Melgarejo and Enrique Cuan‑Urquizo; "Computer Vision Approach for Performance Tracking of Robotic Compliant Systems", submitted to *Engineering Reports*.
+
 
 ## Contributing
 
