@@ -71,6 +71,7 @@ GripperC is a MATLAB App Designer application designed to characterize and analy
 ## Project Structure
 
 ```
+├── GripperC.mlappinstall % Installer for Matlab
 ├── Source code/
 │   ├── helpers/
 │   │   ├── acquisition.m
@@ -89,11 +90,8 @@ GripperC is a MATLAB App Designer application designed to characterize and analy
 │   │   ├── tiny_480.mat
 │   │   ├── tiny_600.mat
 │   │   └── tiny_720.mat
-│   ├── characterizationGUI.mlapp    % Main App Designer file
-│   └── characterizationGUI.prj      % Project file
-├── LICENSE
-├── README.md
-└── .gitignore
+│   ├── GripperC.mlapp    % Main App Designer file
+│   └── GripperC.prj      % Project file
 ```
 
 ## Class Architecture
