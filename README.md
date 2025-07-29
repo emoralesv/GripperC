@@ -36,7 +36,6 @@ GripperC is a MATLAB App Designer application designed to characterize and analy
 - (Optional) GPU support for deep learning inference.
 
 ## Installation
-
 1. Clone or download this repository into your MATLAB project folder.
 2. Ensure the `models/` folder contains your `.mat` detector files (variable name: `detector`).
 3. Open `GripperC.mlapp` in MATLAB App Designer.
@@ -116,3 +115,7 @@ Contributions, bug reports, and feature requests are welcome. Please open an iss
 ## License
 
 This project is released under the MIT License. See [LICENSE](LICENSE) for details.
+
+## Notes 
+To update the repository do not forget to install lfs
+''' git lfs install
