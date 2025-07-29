@@ -118,4 +118,6 @@ This project is released under the MIT License. See [LICENSE](LICENSE) for detai
 
 ## Notes 
 To update the repository do not forget to install lfs
-''' git lfs install
+```
+git lfs install
+```
