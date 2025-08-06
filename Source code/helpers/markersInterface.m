@@ -1,12 +1,15 @@
 classdef markersInterface
+    %MARKERSINTERFACE Manage multiple marker objects and update them using detections.
 
     properties
-        markers
-        time 
+        markers  % Cell array of marker objects
+        time     % Reference start time
     end
 
-    methods%colorCount = [2,0,0,0,0,0,0,0];
+    methods
+        % colorCount = [2,0,0,0,0,0,0,0];
         function obj = markersInterface(colorCount,updateFactor,samples)
+            % Constructor: create marker objects based on desired color counts
             markersCount = 1;
             for colorN = 1 : size(colorCount,2)
                 for n = 1: colorCount( colorN)
@@ -18,13 +21,14 @@ classdef markersInterface
             fprintf("markers were intialized \n");
         end
         function obj = updateNaN(obj)
-            
+            % Update markers with NaN values when no detections are available
             for markerN = 1: size(obj.markers,2)
                 obj.markers{marker} = obj.markers{marker}.updateData(Nan,Nan,NaN);
-
             end
         end
+
         function obj =  updateMarkers(obj,centers,labels)
+            % Update marker positions using detection centers and labels
             %obj.time = obj.time + deltaTime;
             currTime = datetime("now") - obj.time;
             currTime = seconds(currTime);
