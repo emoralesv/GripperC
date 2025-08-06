@@ -2,9 +2,26 @@
 
 *Gripper Characterizer for Robotic Compliant Systems*
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Key Features](#key-features)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Configuration](#configuration)
+- [Data Export](#data-export)
+- [Project Structure](#project-structure)
+- [Class Architecture](#class-architecture)
+- [Citation](#citation)
+- [Contributing](#contributing)
+- [License](#license)
+
 ## Overview
 
-GripperC is a MATLAB App Designer application designed to characterize and analyze compliant robotic grippers. It captures real‑time video from a webcam, detects and tracks colored markers affixed to the gripper, and generates trajectory curves to evaluate its dynamic behavior.
+GripperC is a MATLAB App Designer application designed to characterize and analyze compliant robotic grippers. It captures real-time video from a webcam, detects and tracks colored markers affixed to the gripper, and generates trajectory curves to evaluate its dynamic behavior.
 
 ## Key Features
 
@@ -36,9 +53,14 @@ GripperC is a MATLAB App Designer application designed to characterize and analy
 - (Optional) GPU support for deep learning inference.
 
 ## Installation
+
 1. Clone or download this repository into your MATLAB project folder.
-2. Ensure the `models/` folder contains your `.mat` detector files (variable name: `detector`).
-3. Open `GripperC.mlapp` in MATLAB App Designer.
+2. Install [Git LFS](https://git-lfs.com/) if you plan to work with the included model files:
+   ```bash
+   git lfs install
+   ```
+3. Ensure the `models/` folder contains your `.mat` detector files (variable name: `detector`).
+4. Open `GripperC.mlapp` in MATLAB App Designer.
 
 ## Usage
 
@@ -49,7 +71,7 @@ GripperC is a MATLAB App Designer application designed to characterize and analy
 2. In the **Options** panel:
    - Select **Camera** and **Resolution**.
    - Choose a **Model** from the dropdown.
-   - Adjust **Confidence** slider.
+   - Adjust the **Confidence** slider.
    - Specify marker counts for each color.
 3. Press **Start** to begin tracking.
 4. Watch live video with marker overlays and trajectory plots.
@@ -102,10 +124,9 @@ GripperC is a MATLAB App Designer application designed to characterize and analy
 
 ## Citation
 
-If you use GripperC in your research, please cite: (Don´t forget to update)
+If you use GripperC in your research, please cite:
 
-E. Morales‑Vargas, R.Q. Fuentes‑Aguilar, G. Hernández‑Melgarejo and Enrique Cuan‑Urquizo; "Computer Vision Approach for Performance Tracking of Robotic Compliant Systems", submitted to *Engineering Reports*.
-
+E. Morales‑Vargas, R.Q. Fuentes‑Aguilar, G. Hernández‑Melgarejo and Enrique Cuan‑Urquizo; "Computer Vision Approach for Performance Tracking of Robotic Compliant Systems", submitted to *Engineering Reports*.
 
 ## Contributing
 
@@ -115,8 +136,3 @@ Contributions, bug reports, and feature requests are welcome. Please open an iss
 
 This project is released under the MIT License. See [LICENSE](LICENSE) for details.
 
-## Notes 
-To update the repository do not forget to install lfs
-```
-git lfs install
-```
