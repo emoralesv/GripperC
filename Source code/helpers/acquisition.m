@@ -1,33 +1,33 @@
 % acquisition
-% Clase para gestionar la adquisición de imágenes desde webcam o video y
-% realizar detección de marcadores con un modelo de Deep Learning.
+% Class to handle image acquisition from a webcam or video and
+% perform marker detection using a Deep Learning model.
 
 classdef acquisition
     properties
-        camera              % Objeto webcam o VideoReader según cameraType
-        cameraType          % Tipo de fuente: "webcam" o "video"
-        preprocessMethod    % Método de preprocesamiento: "contrast" o "none"
-        detectionMethod     % Método de detección: "DL" (Deep Learning)
-        model               % Detector cargado desde archivo .mat
-        vidObj              % Objeto VideoReader para video file
-        confidence = 0.5;   % Nivel de confianza mínimo para detección
+        camera              % Webcam or VideoReader object depending on cameraType
+        cameraType          % Source type: "webcam" or "video"
+        preprocessMethod    % Preprocessing method: "contrast" or "none"
+        detectionMethod     % Detection method: "DL" (Deep Learning)
+        model               % Detector loaded from .mat file
+        vidObj              % VideoReader object for video files
+        confidence = 0.5;   % Minimum confidence level for detection
     end
 
     methods
         %% Constructor
         function obj = acquisition(cameraType, camera, preprocessMethod, detectionMethod, model)
-            % Inicializa la instancia con parámetros de entrada:
-            % cameraType: "webcam" o "video"
-            % camera: nombre de la cámara o ruta de video
-            % preprocessMethod: "contrast" o "none"
-            % detectionMethod: "DL" para carga de modelo
-            % model: archivo .mat con variable 'detector'
+            % Initialize instance with input parameters:
+            % cameraType: "webcam" or "video"
+            % camera: camera name or video path
+            % preprocessMethod: "contrast" or "none"
+            % detectionMethod: "DL" to load a model
+            % model: .mat file containing a variable named 'detector'
 
             obj.cameraType = cameraType;
             obj.preprocessMethod = preprocessMethod;
             obj.detectionMethod = detectionMethod;
 
-            % Configura la fuente de imágenes
+            % Set up image source
             if cameraType == "webcam"
                 obj.camera = webcam(camera);
             end
@@ -35,29 +35,29 @@ classdef acquisition
                 obj.vidObj = VideoReader(camera);
             end
 
-            % Si se elige detección con Deep Learning, carga el modelo
+            % If Deep Learning detection is chosen, load the model
             if detectionMethod == "DL"
                 disp("Loading model");
                 data = load(model);
-                obj.model = data.detector;   % Asume variable 'detector' en el .mat
+                obj.model = data.detector;   % Assumes variable 'detector' in the .mat
             end
         end
 
-        %% Método principal de detección
+        %% Main detection method
         function [I, detectedImg, bboxes, labels] = detectMarkers(obj)
-            % Captura imagen, realiza detección y devuelve:
-            % I          - imagen original preprocesada
-            % detectedImg- imagen con anotaciones (rectángulos)
-            % bboxes     - bounding boxes detectadas
-            % labels     - etiquetas de los objetos detectados
+            % Capture an image, run detection, and return:
+            % I          - preprocessed original image
+            % detectedImg- image with annotations (rectangles)
+            % bboxes     - detected bounding boxes
+            % labels     - labels of detected objects
 
-            I = obj.image();  % Obtiene la imagen preprocesada
+            I = obj.image();  % Get preprocessed image
             if ~isempty(I)
-                % Detecta con el modelo DL en GPU
+                % Run DL model on GPU
                 [bboxes, ~, labels] = detect(obj.model, I, ...
                     'Threshold', obj.confidence, ...
                     'ExecutionEnvironment', 'gpu');
-                % Inserta anotaciones si hay detecciones
+                % Insert annotations if detections exist
                 if ~isempty(bboxes)
                     detectedImg = insertObjectAnnotation(I, 'Rectangle', bboxes, labels);
                 else
@@ -70,9 +70,9 @@ classdef acquisition
             end
         end
 
-        %% Detección con umbral variable y frame dado
+        %% Detection with variable threshold and given frame
         function [I, detectedImg, bboxes, labels] = detectMarkersFrame(obj, I, tr)
-            % Ejecuta detección sobre la imagen I usando umbral tr
+            % Run detection on image I using threshold tr
             if ~isempty(I)
                 [bboxes, ~, labels] = detect(obj.model, I, ...
                     'Threshold', tr, ...
@@ -89,32 +89,32 @@ classdef acquisition
             end
         end
 
-        %% Captura imagen según fuente y preprocesa
+        %% Capture image according to source and preprocess
         function I = image(obj)
             switch obj.cameraType
                 case 'webcam'
-                    I = snapshot(obj.camera);      % Toma foto de webcam
+                    I = snapshot(obj.camera);      % Capture webcam frame
                 case 'video'
                     if hasFrame(obj.vidObj)
-                        I = readFrame(obj.vidObj);     % Lee siguiente frame de video
+                        I = readFrame(obj.vidObj);     % Read next video frame
                     else
-                        I = [];                        % Fin de video
+                        I = [];                        % End of video
                     end
                 otherwise
                     I = [];
             end
-            % Aplica preprocesamiento antes de retornar
+            % Apply preprocessing before returning
             I = obj.preprocess(I);
         end
 
-        %% Preprocesamiento de imagen
+        %% Image preprocessing
         function Ic = preprocess(obj, I)
             switch obj.preprocessMethod
                 case "contrast"
-                    % Mejora local de contraste
+                    % Enhance local contrast
                     Ic = localcontrast(I);
                 case "none"
-                    % Sin cambios
+                    % No changes
                     Ic = I;
                 otherwise
                     Ic = I;

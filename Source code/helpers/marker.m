@@ -1,92 +1,92 @@
 % marker
-% Clase para gestionar un marcador de color: mantiene estadísticas de posición,
-% color y registro temporal de datos para seguimiento.
+% Class to handle a color marker: maintains position statistics,
+% color data, and time history for tracking.
 
 classdef marker
-    %% Propiedades de la clase
+    %% Class properties
     properties
-        colorName       % Nombre del color (e.g., 'red')
-        xMean           % Media de coordenada X en la ventana de muestra
-        yMean           % Media de coordenada Y en la ventana de muestra
-        colorMean       % Media de color (RGB) en la ventana de muestra
-        data            % Timetable con historial de [Time, xData, yData]
-        sampleNumber    % Número de muestras para cálculo de medias móviles
-        colorSamples    % Vector de muestras de color
-        time            % Vector de tiempos (duration) para cada muestra de data
-        xData           % Vector temporal de coordenada X antes de consolidar en data
-        yData           % Vector temporal de coordenada Y antes de consolidar en data
-        xSamples        % Buffer circular de muestras de X para media móvil
-        ySamples        % Buffer circular de muestras de Y para media móvil
-        colorIndex      % Índice actual en buffer de colorSamples
-        meanIndex       % Índice actual en buffers xSamples/ySamples
-        dataIndex       % Índice actual en buffers xData/yData/time
-        updateFactor    % Factor de actualización: número de frames antes de guardar data
-        initialized     % Flag que indica si el marcador ha sido inicializado
-        radii           % Radio medio estimado del marcador
+        colorName       % Color name (e.g., 'red')
+        xMean           % Mean X coordinate within the sample window
+        yMean           % Mean Y coordinate within the sample window
+        colorMean       % Mean color (RGB) within the sample window
+        data            % Timetable storing [Time, xData, yData]
+        sampleNumber    % Number of samples for moving average
+        colorSamples    % Vector of color samples
+        time            % Time vector (duration) for each data sample
+        xData           % Temporary X coordinates before being stored in data
+        yData           % Temporary Y coordinates before being stored in data
+        xSamples        % Circular buffer of X samples for moving average
+        ySamples        % Circular buffer of Y samples for moving average
+        colorIndex      % Current index in colorSamples buffer
+        meanIndex       % Current index in xSamples/ySamples buffers
+        dataIndex       % Current index in xData/yData/time buffers
+        updateFactor    % Update factor: number of frames before saving data
+        initialized     % Flag indicating whether the marker has been initialized
+        radii           % Estimated average radius of the marker
     end
 
     methods
         %% Constructor
         function obj = marker(colorIndex, updateFactor, sample)
-            % colorIndex: índice (1-8) del color en la paleta
-            % updateFactor: número de iteraciones antes de consolidar en 'data'
-            % sample: tamaño de ventana para medias móviles (xSamples, ySamples)
+            % colorIndex: index (1-8) of the color in the palette
+            % updateFactor: number of iterations before consolidating into 'data'
+            % sample: window size for moving averages (xSamples, ySamples)
 
-            % Definición de colores RGB y nombres
+            % Definition of RGB colors and names
             colors = [255 0 0; 0 255 0; 0 0 255; 0 255 255; ...
                       255 0 255; 255 255 0; 0 0 0; 255 255 255];
             colornames = ["red","green","blue","cyan", ...
                           "magenta","yellow","black","white"];
 
-            % Inicializa propiedades de color
+            % Initialize color properties
             obj.colorMean   = colors(colorIndex, :);
             obj.colorName   = colornames(colorIndex);
             obj.colorIndex  = 1;
 
-            % Parámetros de buffer y muestra
+            % Buffer and sample parameters
             obj.updateFactor = updateFactor;
             obj.sampleNumber = sample;
 
-            % Inicializa buffers circulares para posición y color
+            % Initialize circular buffers for position and color
             obj.xSamples = ones(sample,1) * 110;
             obj.ySamples = ones(sample,1) * 110;
             obj.colorSamples = zeros(sample,3) + obj.colorMean;
 
-            % Calcula medias iniciales
+            % Compute initial means
             obj.xMean = mean(obj.xSamples);
             obj.yMean = mean(obj.ySamples);
 
-            % Buffers para almacenamiento temporal antes de consolidación
+            % Buffers for temporary storage before consolidation
             obj.xData = zeros(1, updateFactor);
             obj.yData = zeros(1, updateFactor);
             obj.time = seconds(zeros(1, updateFactor));
 
-            % Índices para buffer circular
+            % Indices for circular buffer
             obj.meanIndex = 1;
             obj.dataIndex = 1;
 
-            % Estado de inicialización
+            % Initialization state
             obj.initialized = false;
 
-            % Radio inicial por defecto
+            % Default initial radius
             obj.radii = 10;
         end
 
-        %% Actualiza buffer de color y recalcula media
+        %% Update color buffer and recompute mean
         function obj = updateColor(obj, color)
-            % color: vector RGB de nueva muestra
+            % color: RGB vector of the new sample
             obj.colorSamples(obj.colorIndex, :) = color;
             obj.colorMean = mean(obj.colorSamples, 1);
             obj.colorIndex = obj.colorIndex + 1;
-            % Buffer circular
+            % Circular buffer
             if obj.colorIndex > obj.sampleNumber
                 obj.colorIndex = 1;
             end
         end
 
-        %% Actualiza buffers de coordenadas y recalcula media
+        %% Update coordinate buffers and recompute mean
         function obj = updatexy(obj, x, y)
-            % x, y: nuevas coordenadas de muestra
+            % x, y: new sample coordinates
             obj.xSamples(obj.meanIndex) = x;
             obj.ySamples(obj.meanIndex) = y;
             obj.xMean = mean(obj.xSamples);
@@ -97,20 +97,20 @@ classdef marker
             end
         end
 
-        %% Registra nueva muestra en 'data' cuando se alcanza updateFactor
+        %% Record new sample in 'data' when updateFactor is reached
         function obj = updateData(obj, x, y, radii, time)
-            % x, y: coordenadas actuales
-            % radii: vector de radios detectados
-            % time: tiempo actual (en segundos)
+            % x, y: current coordinates
+            % radii: vector of detected radii
+            % time: current time (in seconds)
 
-            % Añade en buffers temporales
+            % Add to temporary buffers
             obj.xData(obj.dataIndex) = x;
             obj.yData(obj.dataIndex) = y;
             obj.radii = mean(radii);
             obj.time(obj.dataIndex) = seconds(time);
             obj.dataIndex = obj.dataIndex + 1;
 
-            % Cuando el buffer está lleno, consolida en timetable
+            % When buffer is full, consolidate into timetable
             if obj.dataIndex > obj.updateFactor
                 obj.dataIndex = 1;
                 newEntry = timetable(obj.time', obj.xData', obj.yData', ...
